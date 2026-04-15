@@ -55,7 +55,6 @@ async def ping(ctx):
 
 async def send_news(ctx):
     summary = await asyncio.to_thread(summarise_news)
-    print("Summary generated, sending to Discord...", summary)
     for i in range(0, len(summary), 1500):
         await ctx.send(summary[i : i + 1500])
 

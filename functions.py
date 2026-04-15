@@ -52,7 +52,7 @@ def summarise_news():
         # Display markdown output in the terminal
         print("\n\n\nGenerated Summary of News Articles:\n")
         console.print(Markdown(str(summary)))
-
+        print("\n\n\n")
         return str(summary)
     except Exception as e:
         raise Exception(f"An error occurred: {str(e)}")
