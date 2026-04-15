@@ -36,7 +36,7 @@ def summarise_news():
             messages=[
                 {
                     "role": "user",
-                    "content": "You are a helpful assistant that summarises news articles with an emphasis on the impact on markets.",
+                    "content": "You are a helpful assistant that summarises news articles.",
                 },
                 {
                     "role": "user",
