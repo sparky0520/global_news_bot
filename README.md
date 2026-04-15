@@ -22,14 +22,15 @@ A simple Discord bot that fetches Google News text and uses OpenRouter (via the 
 uv sync
 ```
 
-2. Create a `.env` file in the repo root:
+1. Create a `.env` file in the repo root:
 
 ```env
 DISCORD_BOT_TOKEN=your_discord_bot_token
 OPENAI_API_KEY=your_openrouter_api_key
+NEWS_CHANNEL_ID=your_discord_channel_id
 ```
 
-3. Run the bot:
+1. Run the bot:
 
 ```bash
 uv run main.py
@@ -39,3 +40,8 @@ uv run main.py
 
 - `!ping`
 - `!news`
+
+## Scheduling
+
+- The scheduled news job sends to the channel in `NEWS_CHANNEL_ID`.
+- `TARGET_TIME` in `bot.py` is evaluated in the machine's local time.
