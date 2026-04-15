@@ -1,4 +1,5 @@
 import datetime
+import asyncio
 import os
 import discord
 from discord.ext import commands, tasks
@@ -9,7 +10,8 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 USER_ID = os.getenv("DISCORD_USER_ID")
-TARGET_TIME = "17:03"
+# TARGET_TIME = "07:30"  # Target time for sending the DM (24-hour format)
+TARGET_TIME = "17:12"
 
 # Set up intents (permissions)
 intents = discord.Intents.default()
@@ -53,7 +55,7 @@ async def ping(ctx):
 
 
 async def send_news(ctx):
-    summary = summarise_news()
+    summary = await asyncio.to_thread(summarise_news)
     print("Summary generated, sending to Discord...", summary)
     for i in range(0, len(summary), 1500):
         await ctx.send(summary[i : i + 1500])

@@ -13,7 +13,7 @@ console = Console()
 
 def get_news():
     url = "https://news.google.com/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx1YlY4U0JXVnVMVWRDR2dKSlRpZ0FQAQ?hl=en-IN&gl=IN&ceid=IN%3Aen"
-    response = requests.get(url)
+    response = requests.get(url, timeout=180)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
         for script in soup(["script", "style"]):
@@ -29,6 +29,7 @@ def summarise_news():
         openrouter = OpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=os.getenv("OPENAI_API_KEY"),
+            timeout=180,
         )
 
         response = openrouter.chat.completions.create(
