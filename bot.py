@@ -11,7 +11,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 USER_ID = os.getenv("DISCORD_USER_ID")
 # TARGET_TIME = "07:30"  # Target time for sending the DM (24-hour format)
-TARGET_TIME = "17:12"
+TARGET_TIME = os.getenv("TARGET_TIME", "07:30")  # Default to 07:30 if not set
 
 # Set up intents (permissions)
 intents = discord.Intents.default()
