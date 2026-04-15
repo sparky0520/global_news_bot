@@ -1,5 +1,15 @@
+import os
+from rich.console import Console
+from rich.markdown import Markdown
 import requests
 from bs4 import BeautifulSoup
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+console = Console()
 
 
 def get_news():
@@ -11,9 +21,39 @@ def get_news():
             script.decompose()
         return soup.get_text()
     else:
-        return "Failed to retrieve news."
+        raise Exception("Failed to fetch news articles.")
+
+
+def summarise_news():
+    try:
+        body = get_news()
+        openrouter = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=os.getenv("OPENAI_API_KEY"),
+        )
+
+        response = openrouter.chat.completions.create(
+            model="openai/gpt-oss-20b:free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "You are a helpful assistant that summarises news articles with an emphasis on the impact on markets.",
+                },
+                {
+                    "role": "user",
+                    "content": "Summarise the following news article in bullet points: "
+                    + body,
+                },
+            ],
+        )
+
+        return str(response.choices[0].message.content)
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
 
 
 if __name__ == "__main__":
-    news = get_news()
-    print(news)
+    summary = summarise_news()
+    # Display markdown output in the terminal
+
+    console.print(Markdown(summary))
