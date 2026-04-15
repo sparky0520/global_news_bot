@@ -1,28 +1,22 @@
 # Global News Bot
 
-A simple Discord bot that fetches Google News text and uses OpenRouter (via the OpenAI SDK) to generate a concise news summary.
+Discord bot that pulls Google News text and summarizes it with an OpenRouter/OpenAI-compatible API.
 
-## Features
+## Quick Start
 
-- `!ping`: health check command
-- `!news`: fetches and summarizes current Google News content
-- Sends long summaries in chunks to avoid Discord message limits
-
-## Requirements
-
+Requirements:
 - Python 3.14+
-- A Discord bot token
-- An OpenRouter/OpenAI-compatible API key
+- Discord bot token
+- OpenRouter/OpenAI-compatible API key
 
-## Setup
-
-1. Install dependencies:
+Install and run:
 
 ```bash
 uv sync
+uv run main.py
 ```
 
-1. Create a `.env` file in the repo root:
+Create a .env file:
 
 ```env
 DISCORD_BOT_TOKEN=your_discord_bot_token
@@ -30,18 +24,12 @@ OPENAI_API_KEY=your_openrouter_api_key
 NEWS_CHANNEL_ID=your_discord_channel_id
 ```
 
-1. Run the bot:
-
-```bash
-uv run main.py
-```
-
 ## Commands
 
-- `!ping`
-- `!news`
+- !ping
+- !news
 
-## Scheduling
+## Notes
 
-- The scheduled news job sends to the channel in `NEWS_CHANNEL_ID`.
-- `TARGET_TIME` in `bot.py` is evaluated in the machine's local time.
+- Scheduled news posts go to DISCORD_USER_ID.
+- TARGET_TIME in bot.py uses local machine time.
