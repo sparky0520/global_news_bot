@@ -29,7 +29,7 @@ async def on_ready():
 
 @tasks.loop(seconds=60)
 async def scheduled_dm():
-    now = datetime.datetime.now().strftime("%H:%M")
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M")
 
     if now == TARGET_TIME:
         try:
