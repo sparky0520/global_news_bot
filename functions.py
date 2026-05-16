@@ -26,14 +26,14 @@ def get_news():
 def summarise_news():
     try:
         body = get_news()
-        openrouter = OpenAI(
-            base_url="https://openrouter.ai/api/v1",
+        kimi = OpenAI(
+            base_url="https://api.moonshot.ai/v1",
             api_key=os.getenv("OPENAI_API_KEY"),
             timeout=180,
         )
 
-        response = openrouter.chat.completions.create(
-            model="openai/gpt-oss-20b:free",
+        response = kimi.chat.completions.create(
+            model="kimi-k2.6",
             messages=[
                 {
                     "role": "user",
