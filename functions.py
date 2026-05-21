@@ -26,14 +26,13 @@ def get_news():
 def summarise_news():
     try:
         body = get_news()
-        kimi = OpenAI(
-            base_url="https://api.moonshot.ai/v1",
+        openai = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY"),
             timeout=180,
         )
 
-        response = kimi.chat.completions.create(
-            model="kimi-k2.6",
+        response = openai.chat.completions.create(
+            model="gpt-5-nano",
             messages=[
                 {
                     "role": "user",
