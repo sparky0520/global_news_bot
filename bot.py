@@ -27,26 +27,36 @@ async def on_ready():
         scheduled_dm.start()
 
 
-@tasks.loop(seconds=60)
+from zoneinfo import ZoneInfo
+
+IST = ZoneInfo("Asia/Kolkata")
+
+
+@tasks.loop(
+    time=datetime.time(
+        hour=9,
+        minute=15,
+        tzinfo=IST
+    )
+)
+
 async def scheduled_dm():
-    now = datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M")
+    try:
+        if not USER_ID:
+            print("DISCORD_USER_ID is not set; skipping scheduled DM.")
+            return
 
-    if now == TARGET_TIME:
-        try:
-            if not USER_ID:
-                print("DISCORD_USER_ID is not set; skipping scheduled DM.")
-                return
+        user = await bot.fetch_user(int(USER_ID))
+        await send_news(user)
 
-            user = await bot.fetch_user(int(USER_ID))
-            await send_news(user)
-        except Exception as e:
-            print(f"Error: {e}")
+        print("Morning news sent!")
 
+    except Exception as e:
+        print(f"Error in scheduled_dm: {e}")
 
-@scheduled_dm.before_loop
-async def before_dm():
-    await bot.wait_until_ready()
-
+@scheduled_dm.error
+async def scheduled_dm_error(error):
+    print("Loop crashed:", error)
 
 @bot.command()
 async def ping(ctx):
