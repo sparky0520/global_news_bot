@@ -35,7 +35,7 @@ IST = ZoneInfo("Asia/Kolkata")
 @tasks.loop(
     time=datetime.time(
         hour=9,
-        minute=15,
+        minute=20,
         tzinfo=IST
     )
 )
