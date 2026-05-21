@@ -40,7 +40,6 @@ IST = ZoneInfo("Asia/Kolkata")
     )
 )
 
-@scheduled_dm.before_loop
 async def scheduled_dm():
     try:
         if not USER_ID:
@@ -54,6 +53,11 @@ async def scheduled_dm():
 
     except Exception as e:
         print(f"Error in scheduled_dm: {e}")
+
+@scheduled_dm.before_loop
+async def before_scheduled_dm():
+    await bot.wait_until_ready()
+
 
 @scheduled_dm.error
 async def scheduled_dm_error(error):
