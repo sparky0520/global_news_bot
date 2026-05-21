@@ -40,6 +40,7 @@ IST = ZoneInfo("Asia/Kolkata")
     )
 )
 
+@scheduled_dm.before_loop
 async def scheduled_dm():
     try:
         if not USER_ID:
